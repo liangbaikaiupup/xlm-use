@@ -1,0 +1,29 @@
+.vxe-table{
+    overflow: hidden;
+    height: fit-content;
+    position: relative;
+}
+
+:deep(.vxe-table--header-wrapper){
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+:deep(.vxe-table--body-wrapper){
+    flex: 1;
+    position: relative;
+}
+
+:deep(.vxe-table--main-wrapper){
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+:deep(.vxe-table--render-wrapper){
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
