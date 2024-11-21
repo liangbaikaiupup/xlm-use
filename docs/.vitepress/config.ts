@@ -41,5 +41,5 @@ export default defineConfig({
       copyright: "Copyright ©Eluuu",
     },
   },
-  base:'/vitepress-template/'
+  base:'/xlm-use/'
 })
