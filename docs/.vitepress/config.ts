@@ -40,6 +40,6 @@ export default defineConfig({
       message: "Released under the MIT License.",
       copyright: "Copyright ©Eluuu",
     },
-    
-  }
+  },
+  base:'/vitepress-template/'
 })
