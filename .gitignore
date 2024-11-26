@@ -28,3 +28,9 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# npm publish
+/packages
+/src
+vite.config.ts
+packages.json
