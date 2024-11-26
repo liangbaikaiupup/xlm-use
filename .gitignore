@@ -33,4 +33,4 @@ coverage
 /packages
 /src
 vite.config.ts
-packages.json
+package.json
