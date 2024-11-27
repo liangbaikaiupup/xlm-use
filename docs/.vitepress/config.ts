@@ -20,6 +20,12 @@ export default defineConfig({
         ],
       },
       {
+        text: 'Vue Hooks',
+        items: [
+          {text: 'useTable', link: 'vue-hooks/table.md'}
+        ]
+      },
+      {
         text: 'Examples',
         items: [
           { text: 'Markdown Examples', link: '/markdown-examples' },

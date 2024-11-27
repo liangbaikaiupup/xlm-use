@@ -19,7 +19,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "element-plus": "^2.8.1",
+    "element-plus": "^2.8.8",
     "vue": "^3.4.29"
   },
   "devDependencies": {

@@ -1,22 +1,45 @@
----
-hello: world
----
+# Dictionary Table
 
-<script setup>
-import { ref } from 'vue'
+This page shows some dictionary items.
 
-const count = ref(0)
-</script>
+## WF
 
-## Markdown Content
+Whether or not
 
-The count is: {{ count }}
+<!-- 基本格式 -->
+<table>
+    <!-- 表头 -->
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>类型</th>
+            <th>数据值</th>
+            <th>标签名</th>
+            <th>描述</th>
+            <th>排序</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <!-- 表格内容 -->
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>WF</td>
+            <td>true</td>
+            <td>是</td>
+            <td>yes</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>WF</td>
+            <td>false</td>
+            <td>否</td>
+            <td>no</td>
+            <td>2</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
 
-<button :class="$style.button" @click="count++">Increment</button>
-
-<style module>
-.button {
-  color: red;
-  font-weight: bold;
-}
-</style>
