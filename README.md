@@ -1,3 +1,3 @@
 # 文档地址
 
-[xlm-use](https://liangbaikaiupup.github.io/xlm-use/)
+[使用链接](https://liangbaikaiupup.github.io/xlm-use/)
