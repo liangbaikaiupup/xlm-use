@@ -1,5 +1,6 @@
 ﻿import { CellStyle, ElMessage } from "element-plus";
 import { toUnderline } from "../utils/index";
+import { onMounted } from "vue";
 
 /**
  * 表格组件基础配置属性
