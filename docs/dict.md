@@ -2,9 +2,9 @@
 
 This page shows some dictionary items.
 
-## WF
+## TF
 
-Whether or not
+更不动
 
 <!-- 基本格式 -->
 <table>
@@ -24,7 +24,7 @@ Whether or not
     <tbody>
         <tr>
             <td>1</td>
-            <td>WF</td>
+            <td>TF</td>
             <td>true</td>
             <td>是</td>
             <td>yes</td>
@@ -33,7 +33,7 @@ Whether or not
         </tr>
         <tr>
             <td>2</td>
-            <td>WF</td>
+            <td>TF</td>
             <td>false</td>
             <td>否</td>
             <td>no</td>
@@ -42,4 +42,3 @@ Whether or not
         </tr>
     </tbody>
 </table>
-
