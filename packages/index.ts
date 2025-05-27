@@ -4,4 +4,6 @@ export * from "./hooks/table";
 
 export * from "./constants/index"
 
+export * from "./directives";
+
 
