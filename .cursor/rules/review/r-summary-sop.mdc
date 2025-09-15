@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+// 总结本次代码修改的标准流程生成 p-gen-xx 文件，供下次开发使用

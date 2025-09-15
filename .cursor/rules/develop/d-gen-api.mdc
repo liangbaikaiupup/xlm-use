@@ -3,5 +3,4 @@ description:
 globs: 
 alwaysApply: false
 ---
-# vue3
-# packages作为插件开发的主包
+// http api 开发流程、代码模板;

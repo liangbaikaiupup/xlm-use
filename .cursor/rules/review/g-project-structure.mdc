@@ -1,0 +1,86 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 项目结构、技术架构、业务架构
+
+## 1. 项目概述
+这是一个名为 `xlm-use` 的 Vue 3 组件库项目，版本号为 0.0.10，是一个公开的 npm 包。
+
+## 2. 技术架构
+1. **核心框架与语言**：
+   - Vue 3.4.x
+   - TypeScript
+   - Vite 作为构建工具
+
+2. **主要依赖**：
+   - Element Plus 作为 UI 组件库
+   - Vue 3 作为核心框架
+   - TypeScript 用于类型检查
+
+3. **开发工具链**：
+   - Vite 用于开发和构建
+   - Vue TypeScript 支持
+   - VitePress 用于文档站点
+   - 自动导入插件（unplugin-auto-import, unplugin-vue-components）
+
+## 3. 项目结构
+```
+xlm-use/
+├── src/                    # 源代码目录
+│   ├── components/         # 组件目录
+│   ├── assets/            # 静态资源
+│   ├── App.vue            # 根组件
+│   └── main.ts            # 入口文件
+├── docs/                   # 文档目录
+│   ├── .vitepress/        # VitePress 配置
+│   ├── vue-hooks/         # Vue Hooks 文档
+│   └── *.md               # 文档文件
+├── packages/              # 包目录
+├── dist/                  # 构建输出目录
+└── 配置文件
+    ├── package.json       # 项目配置
+    ├── tsconfig.json      # TypeScript 配置
+    ├── vite.config.ts     # Vite 配置
+    └── 其他配置文件
+```
+
+## 4. 构建与发布
+1. **构建命令**：
+   - `npm run dev`: 开发环境
+   - `npm run build`: 生产构建
+   - `npm run docs:dev`: 文档开发
+   - `npm run docs:build`: 文档构建
+
+2. **输出文件**：
+   - UMD 格式：`dist/xlm-use.umd.js`
+   - ES 模块格式：`dist/xlm-use.es.js`
+
+## 5. 文档系统
+- 使用 VitePress 构建文档站点
+- 包含多个文档页面：
+  - API 示例
+  - Markdown 示例
+  - Vue Hooks 文档
+  - 字典文档
+
+## 6. 开发特性
+1. **TypeScript 支持**：
+   - 完整的 TypeScript 配置
+   - 类型检查集成
+
+2. **自动化工具**：
+   - 组件自动导入
+   - API 自动导入
+   - 类型声明自动生成
+
+## 7. 项目特点
+1. 这是一个组件库项目，主要提供 Vue 3 组件
+2. 采用现代化的开发工具链
+3. 完善的文档系统
+4. 支持 TypeScript
+5. 使用 Element Plus 作为基础 UI 库
+
+
+

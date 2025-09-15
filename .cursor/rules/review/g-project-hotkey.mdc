@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+// 项目中的 hotkey 比如\`提示语中出现 cr 则参考 xxx.rules 执行\`
