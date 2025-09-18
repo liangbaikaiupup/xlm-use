@@ -13,9 +13,6 @@ hero:
     - theme: alt
       text: 在线演示
       link: /demo
-    - theme: alt
-      text: API 文档
-      link: /api-examples
 
 features:
   - title: 🚀 Vue 3 原生支持

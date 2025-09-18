@@ -116,11 +116,7 @@ export function useTable(options?: BasicTableProps) {
     method: "get",
   };
 
-  const arr=[
-    {name:'tim',age:18,sex:'男' },
-    {name:'tim',age:18,sex:'男'},
-    {name:'Tom',age:18,sex:'女'}
-  ]
+
 
   /**
    * 合并默认属性配置和自定义属性配置

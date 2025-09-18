@@ -19,8 +19,7 @@ export default defineConfig({
       {
         text: '指南',
         items: [
-          { text: '快速开始', link: '/getting-started' },
-          { text: 'API 示例', link: '/api-examples' }
+          { text: '快速开始', link: '/getting-started' }
         ]
       },
       {
