@@ -1,4 +1,5 @@
-﻿import { CellStyle, ElMessage } from "element-plus";
+﻿import { ElMessage } from "element-plus";
+import type { CellStyle } from "element-plus";
 import { toUnderline } from "../utils/index";
 import { onMounted } from "vue";
 
