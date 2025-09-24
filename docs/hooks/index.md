@@ -4,7 +4,7 @@ xlm-use 提供了一系列实用的 Vue 3 组合式函数，帮助你更高效�
 
 ## Hooks 列表
 
-### [useTable](/hooks/table)
+### useTable
 表格数据管理组合函数，简化表格的数据获取、分页、排序等操作。
 
 **特性：**

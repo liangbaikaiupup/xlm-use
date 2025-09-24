@@ -2,61 +2,6 @@
 
 这里展示了 xlm-use 工具库的各种功能和使用效果。
 
-## 自定义指令演示
-
-### v-waves 水波纹效果
-
-<div class="demo-section">
-  <h4>基础用法</h4>
-  <button v-waves class="demo-btn demo-btn-default">
-    默认效果
-  </button>
-  
-  <h4>预设主题</h4>
-  <button v-waves="'light'" class="demo-btn demo-btn-dark">
-    浅色主题
-  </button>
-  <button v-waves="'dark'" class="demo-btn demo-btn-light">
-    深色主题
-  </button>
-  <button v-waves="'primary'" class="demo-btn demo-btn-primary">
-    主色调主题
-  </button>
-  
-  <h4>自定义配置</h4>
-  <button v-waves="{ color: '#ff6b6b', opacity: 0.4, duration: 800 }" class="demo-btn demo-btn-custom">
-    自定义红色
-  </button>
-  <button v-waves="{ color: '#4ecdc4', opacity: 0.3, duration: 300 }" class="demo-btn demo-btn-custom">
-    自定义青色
-  </button>
-</div>
-
-### v-debounce 防抖效果
-
-<div class="demo-section">
-  <h4>防抖按钮</h4>
-  <button v-debounce:click="handleDebounceClick" class="demo-btn demo-btn-default">
-    防抖按钮 (500ms)
-  </button>
-  <span class="click-count">点击次数: {{ clickCount }}</span>
-  
-  <h4>防抖输入</h4>
-  <input 
-    v-debounce:input.800="handleDebounceInput" 
-    v-model="inputValue"
-    placeholder="输入内容 (800ms 防抖)"
-    class="demo-input"
-  />
-  <div class="input-result">输入结果: {{ inputResult }}</div>
-  
-  <h4>立即执行模式</h4>
-  <button v-debounce:click.immediate="handleImmediateClick" class="demo-btn demo-btn-primary">
-    立即执行防抖
-  </button>
-  <span class="click-count">立即执行次数: {{ immediateCount }}</span>
-</div>
-
 ## 组合式函数演示
 
 ### usePolling 轮询功能
@@ -84,14 +29,39 @@
   </div>
 </div>
 
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+## 工具函数演示
 
-// 防抖演示数据
-const clickCount = ref(0)
-const immediateCount = ref(0)
-const inputValue = ref('')
-const inputResult = ref('')
+### toUnderline 命名转换
+
+<div class="demo-section">
+  <h4>驼峰转下划线</h4>
+  <div class="converter-demo">
+    <input 
+      v-model="camelCaseInput"
+      placeholder="输入驼峰命名"
+      class="demo-input"
+    />
+    <div class="converter-result">
+      <strong>转换结果:</strong> {{ convertedResult }}
+    </div>
+  </div>
+  
+  <h4>常见示例</h4>
+  <div class="examples">
+    <div class="example-item">
+      <code>userName</code> → <code>user_name</code>
+    </div>
+    <div class="example-item">
+      <code>firstName</code> → <code>first_name</code>
+    </div>
+    <div class="example-item">
+      <code>getUserInfo</code> → <code>get_user_info</code>
+    </div>
+  </div>
+</div>
+
+<script setup>
+import { ref, computed, onUnmounted } from 'vue'
 
 // 轮询演示数据
 const isPolling = ref(false)
@@ -100,21 +70,20 @@ const pollingLoading = ref(false)
 const pollingError = ref(null)
 let pollingTimer = null
 
-// 防抖事件处理
-const handleDebounceClick = () => {
-  clickCount.value++
+// 工具函数演示
+const camelCaseInput = ref('userName')
+
+// 模拟 toUnderline 函数
+const toUnderline = (str) => {
+  return str.replace(/([A-Z])/g, '_$1').toLowerCase()
 }
 
-const handleImmediateClick = () => {
-  immediateCount.value++
-}
+const convertedResult = computed(() => {
+  return camelCaseInput.value ? toUnderline(camelCaseInput.value) : ''
+})
 
-const handleDebounceInput = (event) => {
-  inputResult.value = event.target.value
-}
-
-// 轮询功能模拟
-const fetchMockData = () => {
+// 模拟数据获取函数
+const fetchData = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -125,6 +94,7 @@ const fetchMockData = () => {
   })
 }
 
+// 轮询控制函数
 const startPolling = async () => {
   if (isPolling.value) return
   
@@ -136,7 +106,7 @@ const startPolling = async () => {
     
     try {
       pollingLoading.value = true
-      const data = await fetchMockData()
+      const data = await fetchData()
       pollingData.value = data
       pollingError.value = null
     } catch (error) {
@@ -193,26 +163,9 @@ onUnmounted(() => {
   border: 1px solid #d1d5da;
 }
 
-.demo-btn-dark {
-  background: #24292e;
-  color: white;
-}
-
-.demo-btn-light {
-  background: white;
-  color: #24292e;
-  border: 1px solid #d1d5da;
-}
-
 .demo-btn-primary {
   background: #0366d6;
   color: white;
-}
-
-.demo-btn-custom {
-  background: #f8f9fa;
-  color: #495057;
-  border: 1px solid #dee2e6;
 }
 
 .demo-btn:disabled {
@@ -226,21 +179,6 @@ onUnmounted(() => {
   border: 1px solid #d1d5da;
   border-radius: 6px;
   font-size: 14px;
-}
-
-.click-count {
-  margin-left: 12px;
-  color: #586069;
-  font-size: 14px;
-}
-
-.input-result {
-  margin-top: 8px;
-  padding: 8px;
-  background: #f1f8ff;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #0366d6;
 }
 
 .polling-controls {
@@ -264,56 +202,7 @@ onUnmounted(() => {
   font-size: 13px;
   line-height: 1.6;
 }
-</style>
 
-## 工具函数演示
-
-### toUnderline 命名转换
-
-<div class="demo-section">
-  <h4>驼峰转下划线</h4>
-  <div class="converter-demo">
-    <input 
-      v-model="camelCaseInput" 
-      placeholder="输入驼峰命名"
-      class="demo-input"
-    />
-    <div class="converter-result">
-      <strong>转换结果:</strong> {{ convertedResult }}
-    </div>
-  </div>
-  
-  <h4>常见示例</h4>
-  <div class="examples">
-    <div class="example-item">
-      <code>userName</code> → <code>user_name</code>
-    </div>
-    <div class="example-item">
-      <code>firstName</code> → <code>first_name</code>
-    </div>
-    <div class="example-item">
-      <code>getUserInfo</code> → <code>get_user_info</code>
-    </div>
-  </div>
-</div>
-
-<script setup>
-import { ref, computed } from 'vue'
-
-// 工具函数演示
-const camelCaseInput = ref('userName')
-
-// 模拟 toUnderline 函数
-const toUnderline = (str) => {
-  return str.replace(/([A-Z])/g, '_$1').toLowerCase()
-}
-
-const convertedResult = computed(() => {
-  return camelCaseInput.value ? toUnderline(camelCaseInput.value) : ''
-})
-</script>
-
-<style scoped>
 .converter-demo {
   margin-bottom: 20px;
 }
