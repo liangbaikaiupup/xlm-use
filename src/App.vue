@@ -2,8 +2,10 @@
 import { ref } from 'vue'
 import { vWaves } from '../packages/directives'
 import DebounceDemo from './components/DebounceDemo.vue'
+import ChineseChess from './components/ChineseChess.vue'
+import Gomoku from './components/Gomoku.vue'
 
-const currentDemo = ref('waves') // 'waves', 'debounce'
+const currentDemo = ref('waves') // 'waves', 'debounce', 'chess', 'gomoku'
 </script>
 
 <template>
@@ -25,6 +27,20 @@ const currentDemo = ref('waves') // 'waves', 'debounce'
           class="nav-btn"
         >
           防抖指令
+        </button>
+        <button 
+          @click="currentDemo = 'chess'" 
+          :class="{ active: currentDemo === 'chess' }"
+          class="nav-btn"
+        >
+          中国象棋
+        </button>
+        <button 
+          @click="currentDemo = 'gomoku'" 
+          :class="{ active: currentDemo === 'gomoku' }"
+          class="nav-btn"
+        >
+          五子棋
         </button>
 
       </div>
@@ -56,6 +72,16 @@ const currentDemo = ref('waves') // 'waves', 'debounce'
         <DebounceDemo />
       </div>
 
+      <!-- 中国象棋游戏 -->
+      <div v-if="currentDemo === 'chess'">
+        <ChineseChess />
+      </div>
+
+      <!-- 五子棋游戏 -->
+      <div v-if="currentDemo === 'gomoku'">
+        <Gomoku />
+      </div>
+
     </div>
   </div>
 </template>
@@ -72,7 +98,7 @@ const currentDemo = ref('waves') // 'waves', 'debounce'
 
 .demo-container {
   text-align: center;
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
 }
 

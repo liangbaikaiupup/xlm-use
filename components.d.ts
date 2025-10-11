@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ChineseChess: typeof import('./src/components/ChineseChess.vue')['default']
     DebounceDemo: typeof import('./src/components/DebounceDemo.vue')['default']
+    Gomoku: typeof import('./src/components/Gomoku.vue')['default']
   }
 }
