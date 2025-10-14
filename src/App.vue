@@ -4,8 +4,9 @@ import { vWaves } from '../packages/directives'
 import DebounceDemo from './components/DebounceDemo.vue'
 import ChineseChess from './components/ChineseChess.vue'
 import Gomoku from './components/Gomoku.vue'
+import Chess from './components/Chess.vue'
 
-const currentDemo = ref('waves') // 'waves', 'debounce', 'chess', 'gomoku'
+const currentDemo = ref('waves') // 'waves', 'debounce', 'chess', 'gomoku', 'international-chess'
 </script>
 
 <template>
@@ -41,6 +42,13 @@ const currentDemo = ref('waves') // 'waves', 'debounce', 'chess', 'gomoku'
           class="nav-btn"
         >
           五子棋
+        </button>
+        <button 
+          @click="currentDemo = 'international-chess'" 
+          :class="{ active: currentDemo === 'international-chess' }"
+          class="nav-btn"
+        >
+          国际象棋
         </button>
 
       </div>
@@ -80,6 +88,11 @@ const currentDemo = ref('waves') // 'waves', 'debounce', 'chess', 'gomoku'
       <!-- 五子棋游戏 -->
       <div v-if="currentDemo === 'gomoku'">
         <Gomoku />
+      </div>
+
+      <!-- 国际象棋游戏 -->
+      <div v-if="currentDemo === 'international-chess'">
+        <Chess />
       </div>
 
     </div>
