@@ -10,6 +10,7 @@ export function usePolling(fetchFn: FetchFunction, interval = 5000) {
   const error = ref<Error | null>(null)
   let abortController: AbortController | null = null
   let isVisible = true
+  let timerId: number | null = null
 
   const poll = async () => {
     if (loading.value) return // 防止重复执行
@@ -23,16 +24,37 @@ export function usePolling(fetchFn: FetchFunction, interval = 5000) {
 
       const result = await fetchFn(abortController.signal)
       data.value = result
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'AbortError') {
-        error.value = err
-        console.warn('Polling error:', err)
+    } catch (err: any) {
+      if (err instanceof Error) {
+        if (err.name !== 'AbortError') {
+          error.value = err
+          console.warn('Polling error:', err)
+        }
+      } else {
+         // Handle non-Error objects
+         console.warn('Polling error:', err)
       }
     } finally {
       loading.value = false
       // 🔍 根据可见性决定是否继续
       if (isVisible) {
-        setTimeout(poll, interval)
+        if (timerId) clearTimeout(timerId)
+        timerId = window.setTimeout(poll, interval)
+      }
+    }
+  }
+
+  const handleVisibility = () => {
+    isVisible = !document.hidden
+    if (isVisible) {
+      if (!loading.value) {
+        if (timerId) clearTimeout(timerId)
+        timerId = window.setTimeout(poll, 1000)
+      }
+    } else {
+      if (timerId) {
+        clearTimeout(timerId)
+        timerId = null
       }
     }
   }
@@ -41,43 +63,21 @@ export function usePolling(fetchFn: FetchFunction, interval = 5000) {
     // 移除旧监听避免重复
     document.removeEventListener('visibilitychange', handleVisibility)
     document.addEventListener('visibilitychange', handleVisibility)
+    
+    isVisible = !document.hidden
+    
+    if (timerId) clearTimeout(timerId)
     poll()
   }
 
   const stop = () => {
     abortController?.abort()
     document.removeEventListener('visibilitychange', handleVisibility)
-  }
-
-  const handleVisibility = () => {
-    isVisible = !document.hidden
-    if (isVisible) {
-      setTimeout(poll, 1000)
+    if (timerId) {
+      clearTimeout(timerId)
+      timerId = null
     }
   }
 
   return { data, loading, error, start, stop }
 }
-
-// 使用示例
-// <script setup>
-// import { usePolling } from '@/composables/usePolling'
-
-// const fetchStatus = async (signal) => {
-//   const res = await fetch('/api/servers/status', { signal })
-//   return res.json()
-// }
-
-// const { data, loading } = usePolling(fetchStatus, 5000)
-
-// // 自动在 onMounted 启动
-// </script>
-
-// <template>
-//   <div v-if="loading">加载中...</div>
-//   <ul v-else>
-//     <li v-for="server in data" :key="server.id">
-//       {{ server.name }} - {{ server.status }}
-//     </li>
-//   </ul>
-// </template>

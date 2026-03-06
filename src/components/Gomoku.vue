@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
 // 游戏状态
 const currentPlayer = ref<'black' | 'white'>('black')
@@ -96,6 +96,7 @@ const gameStatus = ref<string>('')
 const moveHistory = ref<{row: number, col: number, player: string}[]>([])
 const winningLine = ref<{row: number, col: number}[]>([])
 const showHint = ref<boolean>(true)
+const isMounted = ref(true)
 
 // AI相关状态
 const isAIMode = ref<boolean>(false)
@@ -362,6 +363,8 @@ const executeAIMove = async () => {
   // 添加思考延迟
   await new Promise(resolve => setTimeout(resolve, 800))
   
+  if (!isMounted.value) return
+
   const aiMove = getAIMove()
   if (aiMove) {
     makeMove(aiMove.row, aiMove.col, 'white')
@@ -372,7 +375,7 @@ const executeAIMove = async () => {
 
 // 监听当前玩家变化，触发AI移动
 watch(currentPlayer, (newPlayer) => {
-  if (isAIMode.value && newPlayer === 'white' && !gameStatus.value) {
+  if (isAIMode.value && newPlayer === 'white' && !gameStatus.value && isMounted.value) {
     nextTick(() => {
       executeAIMove()
     })
@@ -380,7 +383,12 @@ watch(currentPlayer, (newPlayer) => {
 })
 
 onMounted(() => {
+  isMounted.value = true
   resetGame()
+})
+
+onUnmounted(() => {
+  isMounted.value = false
 })
 </script>
 

@@ -57,12 +57,18 @@ export const vWaves: Directive = {
       `
       document.head.appendChild(style)
       
+      // Store style reference for cleanup
+      const styles = (el as any).__waves_styles || ((el as any).__waves_styles = [])
+      styles.push(style)
+      
       el.appendChild(ripple)
 
       // 动画结束后移除元素
       ripple.addEventListener('animationend', () => {
         ripple.remove()
         style.remove()
+        const idx = styles.indexOf(style)
+        if (idx > -1) styles.splice(idx, 1)
       })
     }
 
@@ -73,5 +79,12 @@ export const vWaves: Directive = {
     // 清理所有波纹元素
     const ripples = el.querySelectorAll('.waves-ripple')
     ripples.forEach(ripple => ripple.remove())
+    
+    // Clean up styles
+    const styles = (el as any).__waves_styles
+    if (styles) {
+      styles.forEach((s: HTMLStyleElement) => s.remove())
+      ;(el as any).__waves_styles = null
+    }
   }
 } 

@@ -94,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
 // 棋子类型定义
 interface ChessPiece {
@@ -108,9 +108,10 @@ interface ChessPiece {
 // 游戏状态
 const currentPlayer = ref<'red' | 'black'>('red')
 const selectedPiece = ref<ChessPiece | null>(null)
-const possibleMoves = ref<{row: number, col: number}[]>([])
+const possibleMoves = ref<Array<{row: number, col: number}>>([])
 const gameStatus = ref<string>('')
 const moveHistory = ref<any[]>([])
+const isMounted = ref(true)
 
 // AI相关状态
 const isAIMode = ref<boolean>(false)
@@ -677,6 +678,8 @@ const executeAIMove = async () => {
   // 添加思考延迟，让用户看到AI在思考
   await new Promise(resolve => setTimeout(resolve, 500))
   
+  if (!isMounted.value) return
+
   const aiMove = getAIMove()
   if (aiMove) {
     const fromPiece = board.value[aiMove.from.row][aiMove.from.col]
@@ -708,7 +711,7 @@ const executeAIMove = async () => {
 
 // 监听当前玩家变化，触发AI移动
 watch(currentPlayer, (newPlayer) => {
-  if (isAIMode.value && newPlayer === 'black' && !gameStatus.value) {
+  if (isAIMode.value && newPlayer === 'black' && !gameStatus.value && isMounted.value) {
     nextTick(() => {
       executeAIMove()
     })
@@ -719,7 +722,12 @@ watch(currentPlayer, (newPlayer) => {
 const canUndo = computed(() => moveHistory.value.length > 0)
 
 onMounted(() => {
+  isMounted.value = true
   resetGame()
+})
+
+onUnmounted(() => {
+  isMounted.value = false
 })
 </script>
 

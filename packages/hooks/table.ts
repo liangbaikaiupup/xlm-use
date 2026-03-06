@@ -1,4 +1,4 @@
-﻿import { ElMessage } from "element-plus";
+import { ElMessage } from "element-plus";
 import type { CellStyle } from "element-plus";
 import { toUnderline } from "../utils/index";
 import { onMounted } from "vue";
@@ -146,16 +146,18 @@ export function useTable(options?: BasicTableProps) {
       try {
         // 开始加载数据，设置state.loading为true
         state.loading = true;
+        // Create a copy of query params to avoid mutating the original form
+        const params = { ...state.queryForm };
         // 参数排除空字段
-        for (let key in state.queryForm) {
-          if (state.queryForm[key] === "" || state.queryForm[key] === null) {
-            delete state.queryForm[key];
+        for (let key in params) {
+          if (params[key] === "" || params[key] === null) {
+            delete params[key];
           }
         }
 
         // 调用state.pageList方法发起分页查询
         const res = await state.pageList({
-          ...state.queryForm,
+          ...params,
           // current: state.pagination?.current,
           // size: state.pagination?.size,
           page: {
